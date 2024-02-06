@@ -11,7 +11,7 @@ jobs:
           name: "Install Dependencies and Compile"
           command: |
             echo "Installing dependencies and compiling with Maven"
-            mvn compile  # Cette commande compile votre projet et installe les dépendances
+            mvn compile 
 
   test:
     docker:
