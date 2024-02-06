@@ -20,7 +20,7 @@ jobs:
       - checkout
       - run: echo "this is the test job"
 
-# Orchestrate our job run sequence
+# Orchestrate our job run sequence.
 workflows:
   build_and_test:
     jobs:
