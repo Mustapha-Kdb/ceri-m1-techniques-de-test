@@ -34,7 +34,7 @@ jobs:
       - codecov/upload:
           file: target/site/jacoco/jacoco.xml
           flags: unittests
-          token: ${CODECOV_TOKEN}
+          token: CODECOV_TOKEN
 
 # Orchestrate our job run sequence.
 workflows:
