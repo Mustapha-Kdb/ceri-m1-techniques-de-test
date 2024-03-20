@@ -26,6 +26,11 @@ jobs:
             echo "Running tests with Maven"
             mvn verify 
 
+  upload-coverage:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
       - codecov/upload:
           file: target/site/jacoco/jacoco.xml
           flags: unittests
@@ -40,3 +45,6 @@ workflows:
       - test:
           requires:
             - build
+      - upload-coverage:
+          requires:
+            - test
