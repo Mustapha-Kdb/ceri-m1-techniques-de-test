@@ -2,39 +2,25 @@ package fr.univavignon.pokedex.api;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
 
 public class IPokemonMetadataProviderTest {
 
-    IPokemonMetadataProvider pokemonMetadataProvider;
+    private IPokemonMetadataProvider metadataProvider;
 
     @Before
-    public void setUp() throws PokedexException {
-        pokemonMetadataProvider = Mockito.mock(IPokemonMetadataProvider.class);
+    public void setUp() {
+        metadataProvider = new PokemonMetadataProvider();
     }
 
     @Test
-    public void getPokemonMetadataTest() throws PokedexException {
-
-        int index = 0;
-        String name = "Bulbizarre";
-        int attack = 126;
-        int defense = 126;
-        int stamina = 90;
-
-        PokemonMetadata expectedMetadata = new PokemonMetadata(index, name, attack, defense, stamina);
-
-        when(pokemonMetadataProvider.getPokemonMetadata(index)).thenReturn(expectedMetadata);
-
-        PokemonMetadata metadata = pokemonMetadataProvider.getPokemonMetadata(index);
-
-        assertEquals("L'index du Pokémon ne correspond pas", expectedMetadata.getIndex(), metadata.getIndex());
-        assertEquals("Le nom du Pokémon ne correspond pas", expectedMetadata.getName(), metadata.getName());
-        assertEquals("L'attaque du Pokémon ne correspond pas", expectedMetadata.getAttack(), metadata.getAttack());
-        assertEquals("La défense du Pokémon ne correspond pas", expectedMetadata.getDefense(), metadata.getDefense());
-        assertEquals("La stamina du Pokémon ne correspond pas", expectedMetadata.getStamina(), metadata.getStamina());
+    public void testGetPokemonMetadata() throws PokedexException {
+        PokemonMetadata metadata = metadataProvider.getPokemonMetadata(0);
+        assertNotNull("Les métadonnées du Pokémon ne doivent pas être null", metadata);
+        assertEquals("L'index du Pokémon ne correspond pas", 0, metadata.getIndex());
+        assertEquals("Le nom du Pokémon ne correspond pas", "Bulbizarre", metadata.getName());
+        assertEquals("Les attaques du Pokémon ne correspondent pas", 126, metadata.getAttack());
+        assertEquals("La défense du Pokémon ne correspond pas", 126, metadata.getDefense());
+        assertEquals("L'endurance du Pokémon ne correspond pas", 90, metadata.getStamina());
     }
 }

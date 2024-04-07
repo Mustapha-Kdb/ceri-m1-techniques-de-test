@@ -1,94 +1,75 @@
 package fr.univavignon.pokedex.api;
 
-import fr.univavignon.pokedex.api.IPokedex;
-import fr.univavignon.pokedex.api.Pokemon;
-import fr.univavignon.pokedex.api.PokemonMetadata;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
-
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
 
 public class IPokedexTest {
 
     private IPokedex pokedex;
-    private Pokemon bulbizarre;
-    private Pokemon aquali;
-    private Comparator<Pokemon> compareByIndex;
-    private Comparator<Pokemon> compareByCp;
-    private Comparator<Pokemon> compareByName;
+    private IPokemonMetadataProvider metadataProvider;
+    private IPokemonFactory pokemonFactory;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
+        metadataProvider = new PokemonMetadataProvider(); // Assurez-vous que cela renvoie des données réalistes pour les tests
+        pokemonFactory = new PokemonFactory(metadataProvider);
+        pokedex = new Pokedex(metadataProvider, pokemonFactory);
 
-        pokedex = Mockito.mock(IPokedex.class);
-        bulbizarre = new Pokemon(0, "Bulbizarre",126,126,90,  613, 64, 4000, 4, 56);
-        aquali = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
-
-
-        when(pokedex.size()).thenReturn(2);
-        when(pokedex.addPokemon(bulbizarre)).thenReturn(0);
-        when(pokedex.addPokemon(aquali)).thenReturn(1);
-        when(pokedex.getPokemon(0)).thenReturn(bulbizarre);
-        when(pokedex.getPokemon(1)).thenReturn(aquali);
-        when(pokedex.getPokemons()).thenReturn(Arrays.asList(bulbizarre, aquali));
-
-        compareByIndex = Comparator.comparingInt(Pokemon::getIndex);
-        compareByCp = Comparator.comparingInt(Pokemon::getCp);
-        compareByName = Comparator.comparing(Pokemon::getName);
-
-        when(pokedex.getPokemons(compareByIndex)).thenReturn(Arrays.asList(bulbizarre, aquali));
-        when(pokedex.getPokemons(compareByCp)).thenReturn(Arrays.asList(aquali, bulbizarre));
-        when(pokedex.getPokemons(compareByName)).thenReturn(Arrays.asList(aquali, bulbizarre));
-
-
+        // Création et ajout de Pokémon pour les besoins des tests
+        Pokemon bulbasaur = pokemonFactory.createPokemon(0, 613, 64, 4000, 4); // Bulbasaur
+        Pokemon aquali = pokemonFactory.createPokemon(133, 2729, 202, 5000, 4); // Ivysaur, exemple
+        pokedex.addPokemon(bulbasaur);
+        pokedex.addPokemon(aquali);
     }
 
     @Test
     public void testAddPokemon() {
-        assertEquals("Ajout de Bulbizarre devrait retourner l'index 0", 0, pokedex.addPokemon(bulbizarre));
-        assertEquals("Ajout d'Aquali devrait retourner l'index 1", 1, pokedex.addPokemon(aquali));
+        Pokemon charmander = pokemonFactory.createPokemon(4, 829, 78, 5000, 4); // Charmander, exemple
+        pokedex.addPokemon(charmander);
+        assertEquals("Le Pokédex doit augmenter de taille après l'ajout d'un Pokémon", 3, pokedex.size());
+
+    }
+
+    @Test
+    public void testGetPokemon() throws PokedexException {
+        Pokemon pokemon = pokedex.getPokemon(0); // Récupérer Bulbasaur ajouté dans setUp()
+        assertNotNull("Le Pokémon récupéré ne doit pas être null", pokemon);
+        assertEquals("Le Pokémon récupéré doit avoir l'index 0", 0, pokemon.getIndex());
+        assertEquals("Le Pokémon récupéré doit avoir le nom 'Bulbizarre'", "Bulbizarre", pokemon.getName());
     }
 
     @Test
     public void testSize() {
-        assertEquals("La taille du Pokédex devrait être 2", 2, pokedex.size());
-    }
-
-    @Test
-    public void testGetPokemon() throws Exception {
-        assertEquals("Récupération de Bulbizarre par son index devrait fonctionner", bulbizarre, pokedex.getPokemon(0));
-        assertEquals("Récupération d'Aquali par son index devrait fonctionner", aquali, pokedex.getPokemon(1));
+        assertEquals("Le Pokédex doit contenir 2 Pokémon", 2, pokedex.size());
     }
 
     @Test
     public void testGetPokemons() {
         List<Pokemon> pokemons = pokedex.getPokemons();
-        assertEquals("Le Pokédex devrait contenir exactement 2 Pokémon", 2, pokemons.size());
-        assertEquals("Le premier Pokémon devrait être Bulbizarre", bulbizarre, pokemons.get(0));
-        assertEquals("Le deuxième Pokémon devrait être Aquali", aquali, pokemons.get(1));
+        assertEquals("Le Pokédex doit retourner tous les Pokémon", 2, pokemons.size());
     }
-
 
     @Test
-    public void testGetPokemonsWithComparators() {
-        // Test par index
-        List<Pokemon> pokemonsByIndex = pokedex.getPokemons(compareByIndex);
-        assertEquals("Les Pokémons devraient être triés par index", Arrays.asList(bulbizarre, aquali), pokemonsByIndex);
+    public void testGetPokemonsWithOrder() {
+        List<Pokemon> pokemonsByCp = pokedex.getPokemons(Comparator.comparingInt(Pokemon::getCp));
+        assertTrue("Les Pokémon doivent être triés par CP dans l'ordre croissant",
+                pokemonsByCp.get(0).getCp() <= pokemonsByCp.get(1).getCp());
+        List<Pokemon> pokemonsByName = pokedex.getPokemons(Comparator.comparing(Pokemon::getName));
+        assertTrue("Les Pokémon doivent être triés par nom dans l'ordre alphabétique",
+                pokemonsByName.get(0).getName().compareTo(pokemonsByName.get(1).getName()) <= 0);
+        List<Pokemon> pokemonsByIndex = pokedex.getPokemons(Comparator.comparingInt(Pokemon::getIndex));
+        assertTrue("Les Pokémon doivent être triés par index dans l'ordre croissant",
+                pokemonsByIndex.get(0).getIndex() <= pokemonsByIndex.get(1).getIndex());
 
-        // Test par CP
-        List<Pokemon> pokemonsByCp = pokedex.getPokemons(compareByCp);
-        assertEquals("Les Pokémons devraient être triés par CP", Arrays.asList(aquali, bulbizarre), pokemonsByCp);
+    }
 
-        // Test par nom
-        List<Pokemon> pokemonsByName = pokedex.getPokemons(compareByName);
-        assertEquals("Les Pokémons devraient être triés par nom", Arrays.asList(aquali, bulbizarre), pokemonsByName);
+    @Test(expected = PokedexException.class)
+    public void testGetPokemonWithInvalidId() throws PokedexException {
+        pokedex.getPokemon(10); // ID invalide, doit lancer une PokedexException
     }
 }
+
 
