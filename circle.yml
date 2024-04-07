@@ -26,10 +26,18 @@ jobs:
             echo "Running tests with Maven"
             mvn verify 
 
+  upload-coverage:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      - run:
+          name: "Upload Coverage Report to Codecov"
+          command: bash <(curl -s https://codecov.io/bash)
       - codecov/upload:
-          file: target/site/jacoco/jacoco.xml
-          flags: unittests
-          token: ENV_CODECOV_TOKEN
+          file: ./target/site/jacoco/jacoco.xml
+          token: CODECOV_TOKEN
+
 
 # Orchestrate our job run sequence.
 workflows:
@@ -40,3 +48,6 @@ workflows:
       - test:
           requires:
             - build
+      - upload-coverage:
+          requires:
+            - test
