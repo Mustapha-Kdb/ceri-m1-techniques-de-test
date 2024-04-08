@@ -17,13 +17,11 @@ public class Pokedex implements IPokedex {
 
     @Override
     public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
-        // Utilise IPokemonMetadataProvider pour récupérer les métadonnées
         return metadataProvider.getPokemonMetadata(index);
     }
 
     @Override
     public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
-        // Utilise IPokemonFactory pour créer un nouveau Pokémon
         return pokemonFactory.createPokemon(index, cp, hp, dust, candy);
     }
 

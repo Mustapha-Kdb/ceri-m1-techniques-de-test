@@ -19,6 +19,7 @@ public class IPokemonTrainerFactoryTest {
         assertNotNull("Le dresseur de Pokémon ne doit pas être null", trainer);
         assertEquals("Le nom du dresseur ne correspond pas", "Mustapha", trainer.getName());
         assertEquals("L'équipe du dresseur ne correspond pas", Team.MYSTIC, trainer.getTeam());
+        assertNotNull("Le Pokédex du dresseur ne doit pas être null", trainer.getPokedex());
     }
 }
 

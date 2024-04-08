@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 public class IPokemonFactoryTest {
 
     private IPokemonFactory pokemonFactory;
+    private IPokedex pokedex;
+
 
     @Before
     public void setUp() {
@@ -23,6 +25,7 @@ public class IPokemonFactoryTest {
         assertEquals("Les HP du Pokémon ne correspondent pas", 64, pokemon.getHp());
         assertEquals("La poussière d'étoile du Pokémon ne correspond pas", 4000, pokemon.getDust());
         assertEquals("Les bonbons du Pokémon ne correspondent pas", 4, pokemon.getCandy());
+        assertEquals("L'IV du Pokémon ne correspond pas", 253.0, pokemon.getIv(), 0.1);
     }
 }
 

@@ -4,11 +4,8 @@
 
     @Override
     public PokemonTrainer createTrainer(String name, Team team, IPokedexFactory pokedexFactory) {
-        // Crée un Pokedex pour le nouvel entraîneur
-<span class="fc" id="L8">        IPokedex pokedex = pokedexFactory.createPokedex(new PokemonMetadataProvider(), new PokemonFactory(new PokemonMetadataProvider()));</span>
-
-        // Retourne une nouvelle instance de PokemonTrainer avec le Pokedex créé
-<span class="fc" id="L11">        return new PokemonTrainer(name, team, pokedex);</span>
+<span class="fc" id="L7">        IPokedex pokedex = pokedexFactory.createPokedex(new PokemonMetadataProvider(), new PokemonFactory(new PokemonMetadataProvider()));</span>
+<span class="fc" id="L8">        return new PokemonTrainer(name, team, pokedex);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
