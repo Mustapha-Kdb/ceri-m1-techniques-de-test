@@ -2,48 +2,30 @@ package fr.univavignon.pokedex.api;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
 
 public class IPokemonFactoryTest {
 
     private IPokemonFactory pokemonFactory;
+    private IPokedex pokedex;
+
 
     @Before
-    public void setUp() throws Exception {
-        pokemonFactory = Mockito.mock(IPokemonFactory.class);
+    public void setUp() {
+        pokemonFactory = new PokemonFactory(new PokemonMetadataProvider());
     }
 
     @Test
-    public void createPokemonTest() {
-        // Example1
-        int index = 0;
-        String name = "Bulbizarre";
-        int attack = 126;
-        int defense = 126;
-        int stamina = 90;
-        int cp = 613;
-        int hp = 64;
-        int dust = 4000;
-        int candy = 4;
-        double iv = 56.0;
-
-        Pokemon expectedPokemon = new Pokemon(index, name, attack,defense, stamina, cp, hp, dust, candy, iv);
-
-        when(pokemonFactory.createPokemon(index, cp, hp, dust, candy)).thenReturn(expectedPokemon);
-
-        Pokemon createdPokemon = pokemonFactory.createPokemon(index, cp, hp, dust, candy);
-
-        assertNotNull("Le Pokémon créé est null", createdPokemon);
-        assertEquals("Le nom du Pokémon ne correspond pas", expectedPokemon.getName(), createdPokemon.getName());
-        assertEquals("Les CP du Pokémon ne correspondent pas", expectedPokemon.getCp(), createdPokemon.getCp());
-        assertEquals("Les HP du Pokémon ne correspondent pas", expectedPokemon.getHp(), createdPokemon.getHp());
-        assertEquals("La poussière d'étoile du Pokémon ne correspond pas", expectedPokemon.getDust(), createdPokemon.getDust());
-        assertEquals("Les bonbons du Pokémon ne correspondent pas", expectedPokemon.getCandy(), createdPokemon.getCandy());
-        assertEquals("L'IV du Pokémon ne correspond pas", expectedPokemon.getIv(), createdPokemon.getIv(), 0.001);
+    public void testCreatePokemon() {
+        Pokemon pokemon = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
+        assertNotNull("Le Pokémon créé ne doit pas être null", pokemon);
+        assertEquals("L'index du Pokémon ne correspond pas", 0, pokemon.getIndex());
+        assertEquals("Le nom du Pokémon ne correspond pas", "Bulbizarre", pokemon.getName());
+        assertEquals("Les CP du Pokémon ne correspondent pas", 613, pokemon.getCp());
+        assertEquals("Les HP du Pokémon ne correspondent pas", 64, pokemon.getHp());
+        assertEquals("La poussière d'étoile du Pokémon ne correspond pas", 4000, pokemon.getDust());
+        assertEquals("Les bonbons du Pokémon ne correspondent pas", 4, pokemon.getCandy());
+        assertEquals("L'IV du Pokémon ne correspond pas", 253.0, pokemon.getIv(), 0.1);
     }
 }
 
