@@ -34,7 +34,6 @@ jobs:
           name: "Run Tests and Generate Coverage Report"
           command: |
             echo "Running tests with Maven"
-            mvn clean
             mvn verify 
 
   upload-coverage:
