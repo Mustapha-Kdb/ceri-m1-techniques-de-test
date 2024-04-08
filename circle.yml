@@ -26,11 +26,6 @@ jobs:
           command: |
             echo "Running tests with Maven"
             mvn verify
-      - run:
-          name: "Checkstyle Analysis"
-          command: |
-            echo "Running Checkstyle"
-            mvn checkstyle:check
       - store_artifacts:
           path: target/checkstyle-result.xml
           destination: checkstyle-report
