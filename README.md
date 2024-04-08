@@ -4,10 +4,12 @@
 - Prénom : Mustapha
 - Groupe : M1 IA Classique
 
-## Statut des Builds et Couverture des Tests (Badges)
+## Statut des Builds et Couverture des Tests et Checkstyles (Badges)
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Mustapha-Kdb/ceri-m1-techniques-de-test/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Mustapha-Kdb/ceri-m1-techniques-de-test/tree/master)
 [![codecov](https://codecov.io/gh/Mustapha-Kdb/ceri-m1-techniques-de-test/graph/badge.svg?token=6JNCQ0TG5R)](https://codecov.io/gh/Mustapha-Kdb/ceri-m1-techniques-de-test)
+![Checkstyle Badge](src/main/resources/badges/checkstyle-result.svg)
+
 
 ## À Propos du Projet
 
