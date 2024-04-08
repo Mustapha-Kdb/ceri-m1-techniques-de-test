@@ -23,27 +23,6 @@ jobs:
       - store_artifacts:
           path: target/checkstyle-result.xml
           destination: checkstyle-report
-      - run:
-          name: "Generate and Publish Javadoc"
-          command: |
-            # Générer la Javadoc
-            mvn javadoc:javadoc
-
-            # Configurer Git
-            git config user.name "Mustapha-Kdb"
-            git config user.email "mustapha.genouiz@etudiant-fst.utm.tn"
-
-            # Cloner la branche gh-pages
-            git clone -b gh-pages $(git config --get remote.origin.url) gh-pages
-
-            # Copier la Javadoc dans la branche gh-pages
-            cp -r target/site/apidocs/* gh-pages/
-
-            # Pousser les changements
-            cd gh-pages
-            git add .
-            git commit -m "Automatically update Javadoc"
-            git push origin gh-pages
 
 
   test:

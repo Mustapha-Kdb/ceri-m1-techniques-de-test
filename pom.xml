@@ -113,7 +113,7 @@
                 <executions>
                     <execution>
                         <id>generate-javadoc</id>
-                        <phase>prepare-package</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>javadoc</goal>
                         </goals>
