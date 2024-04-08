@@ -1,37 +1,29 @@
-# UCE Génie Logiciel Avancé : Techniques de tests
+# Techniques de test
 
-## Introduction
+- Nom : Genouiz
+- Prénom : Mustapha
+- Groupe : M1 IA Classique
 
-Vous allez à travers ces projet mettre en application une partie des aspects évoqués en cours vis à vis des techniques de tests.  
-Pour cela nous allons réaliser un projet logiciel de petite taille, en suivant la roadmap suivante : 
-- Setup du projet
-- Mise en place des outils d’intégration continue
-- Écriture des tests unitaires
-- Écriture des mocks, et validation des tests
-- Développement dirigé par les tests
-- Documentation et conventions de style
-- Test d'une implémentation donnée
+## Statut des Builds et Couverture des Tests (Badges)
 
-Durant cette série de TPs, le gestionnaire de version Git sera utilisé à foison, à travers la plateforme GitHub. Si vous n’êtes pas à l’aise avec cet outil[^1], [voici](http://rogerdudler.github.io/git-guide/) un petit guide à garder sous la main.
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Mustapha-Kdb/ceri-m1-techniques-de-test/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Mustapha-Kdb/ceri-m1-techniques-de-test/tree/master)
+[![codecov](https://codecov.io/gh/Mustapha-Kdb/ceri-m1-techniques-de-test/graph/badge.svg?token=6JNCQ0TG5R)](https://codecov.io/gh/Mustapha-Kdb/ceri-m1-techniques-de-test)
 
-## Sujets
+## À Propos du Projet
 
-L'ensemble des sujets de TPs peut être trouvé dans le dossier `TPs`.
+Ce projet s'inscrit dans le cadre d'un exercice pratique visant à mettre en application des méthodologies modernes de développement logiciel telles que le Test-Driven Development (TDD) et l'Intégration Continue (CI), en se basant sur le thème ludique d'un jeu de Pokémon. L'objectif principal de ce travail est de développer une application robuste et maintenable, en appliquant ces principes fondamentaux à chaque étape du développement.
 
-Le dossier `src` contient la définition de l'ensemble des interfaces qui seront l'objet de vos travaux.
+### Intégration Continue avec CircleCI
 
-## Rendus
+Nous avons commencé par mettre en place un pipeline d'Intégration Continue (CI) utilisant CircleCI, un outil puissant qui automatise le processus de test et de déploiement de notre application. À chaque modification et push du code sur notre dépôt GitHub, le pipeline CI est invoqué grâce à une configuration détaillée dans le fichier `circle.yml`. Cette approche garantit que chaque version du projet reste stable et fonctionnelle, minimisant ainsi les régressions et les bugs.
 
-Le rendu des TPs se fait au rythme suivant :
+### Test-Driven Development avec JUnit et Mockito
 
-- TP1 : 2ème séance
-- TP2 : 2ème séance
-- TP3 : 3ème séance
-- TP4 : 5ème séance
-- TP5 : dernière séance
-- TP6 : dernière séance
+Le Test-Driven Development (TDD) est au cœur de notre méthodologie de développement. Nous avons écrit des tests unitaires pour chaque interface et classe avant même d'implémenter leur logique. Cela nous a permis de concevoir notre code de manière réfléchie, en s'assurant qu'il répond à des critères précis de fonctionnalité. Pour la rédaction des tests, nous avons utilisé JUnit, un framework de test unitaire pour Java, combiné à Mockito pour la création de mocks, simulant les comportements des dépendances. Ce processus rigoureux assure non seulement la fiabilité de notre code mais encourage également une conception modulaire et une meilleure compréhension des fonctionnalités développées.
 
-Pour chaque rendu vous devez créer un tag à partir du commit qui correspond à la complétion du TP.  
-Si vous ne spécifiez pas de tag, le dernier commit à la date-heure de la fin de séance sera celui considéré.
+### Suivi de la Couverture de Code avec Codecov et JaCoCo
 
-[^1]: Si vous n’êtes vraiment pas à l’aise avec cet outil nous vous conseillons quand même vivement de vous y mettre.
+Ensuite, l'intégration de Codecov à notre pipeline CI nous a permis de suivre le pourcentage de couverture de code de notre projet. Grâce aux rapports générés par JaCoCo, un outil de couverture de code pour Java, nous pouvons visualiser quels segments de notre code sont effectivement testés par nos tests unitaires. Cela nous offre une perspective précieuse sur la qualité et la robustesse de notre base de code, nous permettant d'identifier les zones nécessitant une attention supplémentaire ou des tests plus approfondis.
+
+### ... To be continued 
+
