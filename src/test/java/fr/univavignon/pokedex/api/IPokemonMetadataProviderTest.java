@@ -12,7 +12,6 @@ public class IPokemonMetadataProviderTest {
     public void setUp() {
         metadataProvider = new PokemonMetadataProvider();
     }
-
     @Test
     public void testGetPokemonMetadata() throws PokedexException {
         PokemonMetadata metadata = metadataProvider.getPokemonMetadata(0);
@@ -22,5 +21,10 @@ public class IPokemonMetadataProviderTest {
         assertEquals("Les attaques du Pokémon ne correspondent pas", 126, metadata.getAttack());
         assertEquals("La défense du Pokémon ne correspond pas", 126, metadata.getDefense());
         assertEquals("L'endurance du Pokémon ne correspond pas", 90, metadata.getStamina());
+    }
+
+    @Test(expected = PokedexException.class)
+    public void testGetPokemonMetadataInvalidIndex() throws PokedexException {
+        metadataProvider.getPokemonMetadata(47);
     }
 }

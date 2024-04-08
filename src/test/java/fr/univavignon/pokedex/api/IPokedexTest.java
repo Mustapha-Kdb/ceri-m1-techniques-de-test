@@ -14,13 +14,12 @@ public class IPokedexTest {
 
     @Before
     public void setUp() {
-        metadataProvider = new PokemonMetadataProvider(); // Assurez-vous que cela renvoie des données réalistes pour les tests
+        metadataProvider = new PokemonMetadataProvider();
         pokemonFactory = new PokemonFactory(metadataProvider);
         pokedex = new Pokedex(metadataProvider, pokemonFactory);
 
-        // Création et ajout de Pokémon pour les besoins des tests
-        Pokemon bulbasaur = pokemonFactory.createPokemon(0, 613, 64, 4000, 4); // Bulbasaur
-        Pokemon aquali = pokemonFactory.createPokemon(133, 2729, 202, 5000, 4); // Ivysaur, exemple
+        Pokemon bulbasaur = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
+        Pokemon aquali = pokemonFactory.createPokemon(133, 2729, 202, 5000, 4);
         pokedex.addPokemon(bulbasaur);
         pokedex.addPokemon(aquali);
     }
@@ -53,17 +52,21 @@ public class IPokedexTest {
     }
 
     @Test
-    public void testGetPokemonsWithOrder() {
-        List<Pokemon> pokemonsByCp = pokedex.getPokemons(Comparator.comparingInt(Pokemon::getCp));
-        assertTrue("Les Pokémon doivent être triés par CP dans l'ordre croissant",
-                pokemonsByCp.get(0).getCp() <= pokemonsByCp.get(1).getCp());
-        List<Pokemon> pokemonsByName = pokedex.getPokemons(Comparator.comparing(Pokemon::getName));
-        assertTrue("Les Pokémon doivent être triés par nom dans l'ordre alphabétique",
-                pokemonsByName.get(0).getName().compareTo(pokemonsByName.get(1).getName()) <= 0);
-        List<Pokemon> pokemonsByIndex = pokedex.getPokemons(Comparator.comparingInt(Pokemon::getIndex));
-        assertTrue("Les Pokémon doivent être triés par index dans l'ordre croissant",
-                pokemonsByIndex.get(0).getIndex() <= pokemonsByIndex.get(1).getIndex());
+    public void testSortPokemonsByName() {
+        List<Pokemon> sortedByName = pokedex.getPokemons(PokemonComparators.NAME);
+        assertTrue("Les Pokémon devraient être triés par nom", sortedByName.get(0).getIndex() == 133);
+    }
 
+    @Test
+    public void testSortPokemonsByCp() {
+        List<Pokemon> sortedByCp = pokedex.getPokemons(PokemonComparators.CP);
+        assertTrue("Les Pokémon devraient être triés par CP", sortedByCp.get(0).getCp() <= sortedByCp.get(1).getCp());
+    }
+
+    @Test
+    public void testSortPokemonsByIndex() {
+        List<Pokemon> sortedByIndex = pokedex.getPokemons(PokemonComparators.INDEX);
+        assertTrue("Les Pokémon devraient être triés par index", sortedByIndex.get(0).getIndex() < sortedByIndex.get(1).getIndex());
     }
 
     @Test(expected = PokedexException.class)
