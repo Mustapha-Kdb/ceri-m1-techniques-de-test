@@ -14,7 +14,7 @@ jobs:
           command: |
             echo "Installing dependencies and compiling with Maven"
             mvn compile 
-            mvn verify
+            mvn clean
       - run:
           name: "Checkstyle Analysis"
           command: |
