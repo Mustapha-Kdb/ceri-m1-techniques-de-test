@@ -40,18 +40,6 @@
     </dependency>
 </dependencies>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
 
     <!-- Build et Tests -->
     <build>
@@ -79,12 +67,12 @@
                 <version>1.0.0</version>
                 <executions>
                     <execution>
-                        <phase>site</phase>
+                        <phase>post-site</phase>
                         <goals>
                             <goal>badges</goal>
                         </goals>
                         <configuration>
-                            <outputDir>target/site/badges</outputDir>
+                            <outputDir>src/main/resources/badges</outputDir>
                             <inputFiles>
                                 <inputFile>target/checkstyle-result.xml</inputFile>
                             </inputFiles>
@@ -96,20 +84,27 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.3.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.30</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>google_checks.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                </configuration>
                 <executions>
                     <execution>
-                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
-                        <configuration>
-                            <configLocation>google_checks.xml</configLocation>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
-
 
             <plugin>
                 <groupId>org.jacoco</groupId>
