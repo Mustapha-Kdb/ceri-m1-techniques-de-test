@@ -14,6 +14,15 @@ jobs:
           command: |
             echo "Installing dependencies and compiling with Maven"
             mvn compile 
+            mvn verify
+      - run:
+          name: "Checkstyle Analysis"
+          command: |
+            echo "Running Checkstyle"
+            mvn checkstyle:check
+      - store_artifacts:
+          path: target/checkstyle-result.xml
+          destination: checkstyle-report
 
 
   test:
@@ -25,11 +34,7 @@ jobs:
           name: "Run Tests and Generate Coverage Report"
           command: |
             echo "Running tests with Maven"
-            mvn verify
-      - store_artifacts:
-          path: target/checkstyle-result.xml
-          destination: checkstyle-report
-
+            mvn verify 
 
   upload-coverage:
     docker:
