@@ -3,7 +3,7 @@ name: Generate and Deploy Javadoc
 on:
   push:
     branches:
-      - master  # Changez 'main' par le nom de votre branche principale si nécessaire
+      - main  # Changez 'main' par le nom de votre branche principale si nécessaire
 
 jobs:
   javadoc:
@@ -25,5 +25,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/site/apidocs
+          branch: gh-pages  # La branche GitHub Pages
+          folder: ./target/site/apidocs  # Le dossier où Maven génère la Javadoc
