@@ -62,6 +62,7 @@ jobs:
           command: |
             git config user.email "mustapha.genouiz@etudiant-fst.utm.tn"
             git config user.name "Mustapha-Kdb"
+            git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Mustapha-Kdb/ceri-m1-techniques-de-test.git
             git clone $CIRCLE_REPOSITORY_URL temp
             cd temp
             git checkout gh-pages || git checkout --orphan gh-pages
