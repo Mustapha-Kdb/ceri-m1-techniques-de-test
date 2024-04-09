@@ -56,7 +56,7 @@ jobs:
       - run:
           name: "Publish Javadoc to GitHub Pages"
           command: |
-            git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Mustapha-Kdb/ceri-m1-techniques-de-test.git
+            git remote set-url origin https://x-access-token:GITHUB_TOKEN@github.com/Mustapha-Kdb/ceri-m1-techniques-de-test.git
             git clone $CIRCLE_REPOSITORY_URL temp
             cd temp
             git checkout gh-pages || git checkout --orphan gh-pages
