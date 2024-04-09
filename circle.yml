@@ -55,22 +55,22 @@ jobs:
   publish-javadoc:
     docker:
       - image: cimg/openjdk:17.0
-    steps:
-      - checkout
-      - run:
-          name: "Publish Javadoc to GitHub Pages"
-          command: |
-            git config user.email "mustapha.genouiz@etudiant-fst.utm.tn"
-            git config user.name "Mustapha-Kdb"
-            git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Mustapha-Kdb/ceri-m1-techniques-de-test.git
-            git clone $CIRCLE_REPOSITORY_URL temp
-            cd temp
-            git checkout gh-pages || git checkout --orphan gh-pages
-            git rm -rf .
-            cp -R ../target/site/apidocs/* .
-            git add .
-            git commit -m "Publish Javadoc [skip ci]"
-            git push origin gh-pages
+  steps:
+    - checkout
+    - run:
+        name: "Publish Javadoc to GitHub Pages"
+        command: |
+          git clone $CIRCLE_REPOSITORY_URL temp
+          cd temp
+          git checkout gh-pages || git checkout --orphan gh-pages
+          git rm -rf .
+          cp -R ../target/site/apidocs/* .
+          git add .
+          # Configure Git identity just before committing
+          git config user.email "mustapha.genouiz@etudiant-fst.utm.tn"
+          git config user.name "Mustapha-Kdb"
+          git commit -m "Publish Javadoc [skip ci]"
+          git push origin gh-pages
 
 
 # Orchestrate our job run sequence.
