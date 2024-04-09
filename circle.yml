@@ -49,23 +49,23 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Configure Git User"
+          name: "Publish Javadoc to GitHub Pages"
           command: |
             git config --global user.email "mustapha.genouiz@etudiant-fst.utm.tn"
             git config --global user.name "Mustapha-Kdb"
-      - run:
-          name: "Publish Javadoc to GitHub Pages"
-          command: |
-            git remote set-url origin https://x-access-token:GITHUB_TOKEN@github.com/Mustapha-Kdb/ceri-m1-techniques-de-test.git
-            git clone $CIRCLE_REPOSITORY_URL temp
-            cd temp
+
+            git clone $CIRCLE_REPOSITORY_URL /tmp/gh-pages
+            cd /tmp/gh-pages
             git checkout gh-pages || git checkout --orphan gh-pages
             git rm -rf .
-            cp -R ../target/site/apidocs/* .
-            git add .
-            git commit -m "Publish Javadoc [skip ci]"
-            git push origin gh-pages
 
+            # Copier la nouvelle Javadoc dans la branche gh-pages
+            cp -R $CIRCLE_WORKING_DIRECTORY/target/site/apidocs/* .
+
+            # Ajouter et commiter les changements
+            git add .
+            git commit -m "Automatically publish Javadoc [skip ci]"
+            git push origin gh-pages    
 
 workflows:
   version: 2
