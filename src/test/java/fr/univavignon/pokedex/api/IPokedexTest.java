@@ -97,10 +97,10 @@ public class IPokedexTest {
         pokedex.getPokemonMetadata(invalidIndex);
     }
 
-
     @Test(expected = PokedexException.class)
     public void testGetPokemonWithInvalidId() throws PokedexException {
         pokedex.getPokemon(10); // ID invalide, doit lancer une PokedexException
+        pokedex.getPokemon(-10); // ID invalide, doit lancer une PokedexException
     }
 }
 
