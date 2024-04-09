@@ -3,9 +3,25 @@ package fr.univavignon.pokedex.api;
 import java.util.HashMap;
 import java.util.Map;
 
+// add english comments
+/**
+ * Pokemon metadata provider.
+ *
+ * This class is used to provide metadata about pokemons.
+ *
+ * @see PokemonMetadata
+ * @see IPokemonMetadataProvider
+ * @see PokedexException
+ */
 public class PokemonMetadataProvider implements IPokemonMetadataProvider {
+    /**
+     * Map of metadata.
+     */
     private static final Map<Integer, PokemonMetadata> metadataMap = new HashMap<>();
 
+    /**
+     * Static block to initialize metadata for Bulbasaur and Vaporeon.
+     */
     static {
         // Initialisation des métadonnées pour Bulbizarre et Aquali
         metadataMap.put(0, new PokemonMetadata(0, "Bulbizarre", 126, 126, 90));
@@ -15,6 +31,13 @@ public class PokemonMetadataProvider implements IPokemonMetadataProvider {
 
     }
 
+    /**
+     * Get metadata for a pokemon.
+     *
+     * @param index Index of the pokemon.
+     * @return Metadata of the pokemon.
+     * @throws PokedexException If metadata is not found.
+     */
     @Override
     public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
         if (!metadataMap.containsKey(index)) {

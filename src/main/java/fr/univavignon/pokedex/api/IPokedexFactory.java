@@ -8,8 +8,8 @@ package fr.univavignon.pokedex.api;
 public interface IPokedexFactory {
 
 	/**
-	 * Creates a new pokedex instance using the given 
-	 * <tt>metadataProvider</tt> and <tt>pokemonFactory</tt>. 
+	 * Creates a new pokedex instance using the given
+	 * metadata provider and pokemon factory.
 	 * 
 	 * @param metadataProvider Metadata provider the created pokedex will use.
 	 * @param pokemonFactory Pokemon factory the created pokedex will use.

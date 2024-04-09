@@ -109,17 +109,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.3.2</version>
                 <executions>
                     <execution>
-                        <id>generate-javadoc</id>
-                        <phase>compile</phase>
+                        <id>generate-javadocs</id>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>javadoc</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/javadoc</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
 
             <plugin>
                 <groupId>org.jacoco</groupId>

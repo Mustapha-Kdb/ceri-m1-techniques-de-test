@@ -20,6 +20,11 @@ jobs:
           command: |
             echo "Running Checkstyle"
             mvn checkstyle:check
+      - run:
+          name: "Generate Javadoc"
+          command: |
+            echo "Generating Javadoc"
+            mvn javadoc:javadoc
       - store_artifacts:
           path: target/checkstyle-result.xml
           destination: checkstyle-report
@@ -47,6 +52,24 @@ jobs:
       - codecov/upload:
           file: ./target/site/jacoco/jacoco.xml
           token: CODECOV_TOKEN
+  publish-javadoc:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      - run:
+          name: "Publish Javadoc to GitHub Pages"
+          command: |
+            git config user.email "mustapha.genouiz@etudiant-fst.utm.tn"
+            git config user.name "Mustapha-Kdb"
+            git clone $CIRCLE_REPOSITORY_URL temp
+            cd temp
+            git checkout gh-pages || git checkout --orphan gh-pages
+            git rm -rf .
+            cp -R ../target/site/apidocs/* .
+            git add .
+            git commit -m "Publish Javadoc [skip ci]"
+            git push origin gh-pages
 
 
 # Orchestrate our job run sequence.
@@ -61,3 +84,6 @@ workflows:
       - upload-coverage:
           requires:
             - test
+      - publish-javadoc:
+          requires:
+            - upload-coverage
