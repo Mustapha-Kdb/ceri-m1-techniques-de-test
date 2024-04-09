@@ -60,7 +60,7 @@ jobs:
             git rm -rf .
 
             # Copier la nouvelle Javadoc dans la branche gh-pages
-            cp -R $CIRCLE_WORKING_DIRECTORY/target/site/apidocs/* .
+            cp -R $CIRCLE_WORKING_DIRECTORY/target/javadoc/* .
 
             # Ajouter et commiter les changements
             git add .
