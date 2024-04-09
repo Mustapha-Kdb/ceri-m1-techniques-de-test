@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pokedex.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Pokemon-Test-Factory</a> &gt; <a href="index.source.html" class="el_package">fr.univavignon.pokedex.api</a> &gt; <span class="el_source">Pokedex.java</span></div><h1>Pokedex.java</h1><pre class="source lang-java linenums">package fr.univavignon.pokedex.api;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Pokedex API interface.
+ * This interface represents the pokedex, it is responsible for the management of the pokemons.
+ * The pokedex is a collection of pokemons.
+ * The pokedex is responsible for the management of the pokemons.
+ */
+public class Pokedex implements IPokedex {
+    /** List of pokemons. **/
+<span class="fc" id="L16">    private final List&lt;Pokemon&gt; pokemonList = new ArrayList&lt;&gt;();</span>
+    /** Pokemon metadata provider. **/
+    private final IPokemonMetadataProvider metadataProvider;
+    /** Pokemon factory. **/
+    private final IPokemonFactory pokemonFactory;
+
+    /**
+     * Constructor.
+     *
+     * @param metadataProvider Pokemon metadata provider.
+     * @param pokemonFactory Factory to create the pokemon of the pokedex.
+     */
+<span class="fc" id="L28">    public Pokedex(IPokemonMetadataProvider metadataProvider, IPokemonFactory pokemonFactory) {</span>
+<span class="fc" id="L29">        this.metadataProvider = metadataProvider;</span>
+<span class="fc" id="L30">        this.pokemonFactory = pokemonFactory;</span>
+<span class="fc" id="L31">    }</span>
+
+    /**
+     * Get the metadata of the pokemon at the given index.
+     *
+     * @param index Index of the pokemon.
+     * @return The metadata of the pokemon at the given index.
+     * @throws PokedexException If the index is invalid.
+     */
+    @Override
+    public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
+<span class="nc" id="L42">        return metadataProvider.getPokemonMetadata(index);</span>
+    }
+
+    /**
+     * Create and return a new Pokemon instance.
+     *
+     * @param index Index of the Pokemon.
+     * @param cp CP of the Pokemon.
+     * @param hp HP of the Pokemon.
+     * @param dust Dust of the Pokemon.
+     * @param candy Candy of the Pokemon.
+     * @return The created Pokemon instance.
+     */
+    @Override
+    public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
+<span class="nc" id="L57">        return pokemonFactory.createPokemon(index, cp, hp, dust, candy);</span>
+    }
+
+    /**
+     * Add a pokemon to the pokedex.
+     *
+     * @param pokemon Pokemon to add.
+     * @return The index of the added pokemon.
+     */
+    @Override
+    public int addPokemon(Pokemon pokemon) {
+<span class="fc" id="L68">        pokemonList.add(pokemon);</span>
+<span class="fc" id="L69">        return pokemonList.size() - 1;</span>
+    }
+
+    /**
+     * Get the pokemon at the given index.
+     *
+     * @param id Index of the pokemon.
+     * @return The pokemon at the given index.
+     * @throws PokedexException If the index is invalid.
+     */
+    @Override
+    public Pokemon getPokemon(int id) throws PokedexException {
+<span class="pc bpc" id="L81" title="1 of 4 branches missed.">        if (id &lt; 0 || id &gt;= pokemonList.size()) {</span>
+<span class="fc" id="L82">            throw new PokedexException(&quot;Index de Pokémon invalide : &quot; + id);</span>
+        }
+<span class="fc" id="L84">        return pokemonList.get(id);</span>
+    }
+
+    /**
+     * Get all the pokemons in the pokedex.
+     *
+     * @return The list of all the pokemons in the pokedex.
+     */
+    @Override
+    public List&lt;Pokemon&gt; getPokemons() {
+<span class="fc" id="L94">        return new ArrayList&lt;&gt;(pokemonList);</span>
+    }
+
+    /**
+     * Get all the pokemons in the pokedex sorted by the given order.
+     *
+     * @param order Comparator to sort the pokemons.
+     * @return The list of all the pokemons in the pokedex sorted by the given order.
+     */
+    @Override
+    public List&lt;Pokemon&gt; getPokemons(Comparator&lt;Pokemon&gt; order) {
+<span class="fc" id="L105">        return pokemonList.stream().sorted(order).collect(Collectors.toList());</span>
+    }
+
+    /**
+     * Get the number of pokemons in the pokedex.
+     *
+     * @return The number of pokemons in the pokedex.
+     */
+    @Override
+    public int size() {
+<span class="fc" id="L115">        return pokemonList.size();</span>
+    }
+}
+
+
+
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
