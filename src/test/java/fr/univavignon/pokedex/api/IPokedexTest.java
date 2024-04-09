@@ -69,6 +69,35 @@ public class IPokedexTest {
         assertTrue("Les Pokémon devraient être triés par index", sortedByIndex.get(0).getIndex() < sortedByIndex.get(1).getIndex());
     }
 
+    @Test
+    public void testCreatePokemon() {
+        int index = 0;
+        int cp = 613;
+        int hp = 64;
+        int dust =  4000;
+        int candy = 4;
+        Pokemon createdPokemon = pokedex.createPokemon(index, cp, hp, dust, candy);
+
+        assertNotNull("Le Pokémon créé ne doit pas être null", createdPokemon);
+        assertEquals("L'index du Pokémon créé doit correspondre", index, createdPokemon.getIndex());
+    }
+
+    @Test
+    public void testGetPokemonMetadataValidIndex() throws PokedexException {
+        int index = 0;
+        PokemonMetadata metadata = pokedex.getPokemonMetadata(index);
+
+        assertNotNull("Les métadonnées du Pokémon ne doivent pas être null", metadata);
+        assertEquals("L'index des métadonnées doit correspondre", index, metadata.getIndex());
+    }
+
+    @Test(expected = PokedexException.class)
+    public void testGetPokemonMetadataInvalidIndex() throws PokedexException {
+        int invalidIndex = 10000;
+        pokedex.getPokemonMetadata(invalidIndex);
+    }
+
+
     @Test(expected = PokedexException.class)
     public void testGetPokemonWithInvalidId() throws PokedexException {
         pokedex.getPokemon(10); // ID invalide, doit lancer une PokedexException
