@@ -13,6 +13,7 @@ jobs:
           name: "Install Dependencies and Compile"
           command: |
             echo "Installing dependencies and compiling with Maven"
+            mvn clean 
             mvn compile 
 
   test:
