@@ -3,7 +3,7 @@ name: Generate and Deploy Javadoc
 on:
   push:
     branches:
-      - main  # Changez 'main' par le nom de votre branche principale si nécessaire
+      - master
 
 jobs:
   javadoc:
