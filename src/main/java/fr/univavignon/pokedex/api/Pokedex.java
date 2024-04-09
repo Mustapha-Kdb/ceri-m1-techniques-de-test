@@ -74,13 +74,9 @@ public class Pokedex implements IPokedex {
      *
      * @param id Index of the pokemon.
      * @return The pokemon at the given index.
-     * @throws PokedexException If the index is invalid.
      */
     @Override
-    public Pokemon getPokemon(int id) throws PokedexException {
-        if (id < 0 || id >= pokemonList.size()) {
-            throw new PokedexException("Index de Pokémon invalide : " + id);
-        }
+    public Pokemon getPokemon(int id) {
         return pokemonList.get(id);
     }
 

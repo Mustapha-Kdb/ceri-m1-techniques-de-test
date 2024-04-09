@@ -74,14 +74,10 @@ public class Pokedex implements IPokedex {
      *
      * @param id Index of the pokemon.
      * @return The pokemon at the given index.
-     * @throws PokedexException If the index is invalid.
      */
     @Override
-    public Pokemon getPokemon(int id) throws PokedexException {
-<span class="pc bpc" id="L81" title="1 of 4 branches missed.">        if (id &lt; 0 || id &gt;= pokemonList.size()) {</span>
-<span class="fc" id="L82">            throw new PokedexException(&quot;Index de Pokémon invalide : &quot; + id);</span>
-        }
-<span class="fc" id="L84">        return pokemonList.get(id);</span>
+    public Pokemon getPokemon(int id) {
+<span class="fc" id="L80">        return pokemonList.get(id);</span>
     }
 
     /**
@@ -91,7 +87,7 @@ public class Pokedex implements IPokedex {
      */
     @Override
     public List&lt;Pokemon&gt; getPokemons() {
-<span class="fc" id="L94">        return new ArrayList&lt;&gt;(pokemonList);</span>
+<span class="fc" id="L90">        return new ArrayList&lt;&gt;(pokemonList);</span>
     }
 
     /**
@@ -102,7 +98,7 @@ public class Pokedex implements IPokedex {
      */
     @Override
     public List&lt;Pokemon&gt; getPokemons(Comparator&lt;Pokemon&gt; order) {
-<span class="fc" id="L105">        return pokemonList.stream().sorted(order).collect(Collectors.toList());</span>
+<span class="fc" id="L101">        return pokemonList.stream().sorted(order).collect(Collectors.toList());</span>
     }
 
     /**
@@ -112,7 +108,7 @@ public class Pokedex implements IPokedex {
      */
     @Override
     public int size() {
-<span class="fc" id="L115">        return pokemonList.size();</span>
+<span class="fc" id="L111">        return pokemonList.size();</span>
     }
 }
 
