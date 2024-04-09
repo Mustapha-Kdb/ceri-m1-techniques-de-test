@@ -39,7 +39,7 @@ public class Pokedex implements IPokedex {
      */
     @Override
     public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
-<span class="nc" id="L42">        return metadataProvider.getPokemonMetadata(index);</span>
+<span class="fc" id="L42">        return metadataProvider.getPokemonMetadata(index);</span>
     }
 
     /**
@@ -54,7 +54,7 @@ public class Pokedex implements IPokedex {
      */
     @Override
     public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
-<span class="nc" id="L57">        return pokemonFactory.createPokemon(index, cp, hp, dust, candy);</span>
+<span class="fc" id="L57">        return pokemonFactory.createPokemon(index, cp, hp, dust, candy);</span>
     }
 
     /**
