@@ -41,7 +41,7 @@ public class PokemonFactory implements IPokemonFactory {
     public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) throws PokedexException {
         PokemonMetadata metadata = null;
 
-            metadata = metadataProvider.getPokemonMetadata(index);
+        metadata = metadataProvider.getPokemonMetadata(index);
 
         double iv = (cp + hp + dust + candy) / metadata.getAttack() + metadata.getDefense() + metadata.getStamina();
         return new Pokemon(index, metadata.getName(), metadata.getAttack(), metadata.getDefense(), metadata.getStamina(), cp, hp, dust, candy, iv);
