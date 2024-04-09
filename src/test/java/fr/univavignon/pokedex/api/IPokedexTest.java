@@ -13,7 +13,7 @@ public class IPokedexTest {
     private IPokemonFactory pokemonFactory;
 
     @Before
-    public void setUp() {
+    public void setUp() throws PokedexException {
         metadataProvider = new PokemonMetadataProvider();
         pokemonFactory = new PokemonFactory(metadataProvider);
         pokedex = new Pokedex(metadataProvider, pokemonFactory);
@@ -25,7 +25,7 @@ public class IPokedexTest {
     }
 
     @Test
-    public void testAddPokemon() {
+    public void testAddPokemon() throws PokedexException {
         Pokemon charmander = pokemonFactory.createPokemon(4, 829, 78, 5000, 4); // Charmander, exemple
         pokedex.addPokemon(charmander);
         assertEquals("Le Pokédex doit augmenter de taille après l'ajout d'un Pokémon", 3, pokedex.size());
@@ -70,7 +70,7 @@ public class IPokedexTest {
     }
 
     @Test
-    public void testCreatePokemon() {
+    public void testCreatePokemon() throws PokedexException {
         int index = 0;
         int cp = 613;
         int hp = 64;

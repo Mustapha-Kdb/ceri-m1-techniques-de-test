@@ -16,7 +16,7 @@ public class IPokemonFactoryTest {
     }
 
     @Test
-    public void testCreatePokemon() {
+    public void testCreatePokemon() throws PokedexException {
         Pokemon pokemon = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
         assertNotNull("Le Pokémon créé ne doit pas être null", pokemon);
         assertEquals("L'index du Pokémon ne correspond pas", 0, pokemon.getIndex());

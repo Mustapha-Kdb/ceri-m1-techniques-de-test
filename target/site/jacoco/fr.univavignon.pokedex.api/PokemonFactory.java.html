@@ -38,15 +38,13 @@ public class PokemonFactory implements IPokemonFactory {
      * @return The created Pokemon instance.
      */
     @Override
-    public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
+    public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) throws PokedexException {
 <span class="fc" id="L42">        PokemonMetadata metadata = null;</span>
-        try {
+
 <span class="fc" id="L44">            metadata = metadataProvider.getPokemonMetadata(index);</span>
-<span class="nc" id="L45">        } catch (PokedexException e) {</span>
-<span class="nc" id="L46">            e.printStackTrace();</span>
-<span class="fc" id="L47">        }</span>
-<span class="fc" id="L48">        double iv = (cp + hp + dust + candy) / metadata.getAttack() + metadata.getDefense() + metadata.getStamina();</span>
-<span class="fc" id="L49">        return new Pokemon(index, metadata.getName(), metadata.getAttack(), metadata.getDefense(), metadata.getStamina(), cp, hp, dust, candy, iv);</span>
+
+<span class="fc" id="L46">        double iv = (cp + hp + dust + candy) / metadata.getAttack() + metadata.getDefense() + metadata.getStamina();</span>
+<span class="fc" id="L47">        return new Pokemon(index, metadata.getName(), metadata.getAttack(), metadata.getDefense(), metadata.getStamina(), cp, hp, dust, candy, iv);</span>
     }
 }
 
